@@ -1,0 +1,54 @@
+#Safe update method- To turn on 0, to turn off 1
+-> Safe Update Mode is a MySQL feature that prevents accidental updates or deletes of large amounts of data.
+When Safe Update is ON, MySQL does not allow:
+UPDATE or DELETE statements
+❌ without a WHERE clause, or
+❌ without using a KEY column (like a Primary Key), or
+❌ without a LIMIT clause
+CODE:-
+set sql_safe_updates=0;
+
+----------------------*-----------------------*----------------------------*------------------------
+
+#Update the wrong entry to correct entry.
+-> Update modifies an existing data in the table. Update without Where = Dangerous.
+CODE:-
+UPDATE Student 
+set Result="Pass"
+where Roll_No = 3;
+
+-----------------------*----------------------*------------------------*------------------------
+
+#Delete unwanted data from the table.
+-> DELETE is a SQL command used to remove rows (records) from a table permanentely.
+delete from Student  (Table_name)
+where Result="Fail";  (Condition)
+
+-----------------------*----------------------*------------------------*------------------------
+
+#Truncate the table (The book in the shelf will get deleted)
+-> When to Use TRUNCATE??
+✔ When you want to completely clear a table
+✔ When you need fast performance
+✔ When rollback is not required.
+
+-----------------------*----------------------*------------------------*------------------------
+
+->What TRUNCATE Does
+-Deletes all rows from a table
+-Resets AUTO_INCREMENT values to the starting point
+-Keeps the table structure (columns, constraints) intact
+CODE:-
+truncate Student;
+
+-----------------------*----------------------*------------------------*------------------------
+
+#Drop the table (Will drop the entire table/book shelf)
+-> DROP TABLE permanently deletes a table from the database.
+- Deletes the table structure
+- Deletes all data inside it
+❌ Cannot be rolled back (unless you have a backup)
+
+When to Drop a Table-> When you want to recreate the table from scratch, when cleaning unused objects in the dataframe
+CODE:-
+drop table Student
