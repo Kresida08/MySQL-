@@ -1,0 +1,59 @@
+#To run the code:- Ctrl+Shift+Enter
+
+#Create a database
+#A database in MySQL is a structured collection of related data stored in tables, used to efficiently store, retrieve, and manage information.
+CODE:- 
+use Work;
+
+#Create a table 
+#A table is a structure within the database that stores data in rows and columns.
+
+create table Student (
+Roll_No int,
+Student_name Varchar (50),
+Marks int,
+Result varchar (10));
+
+# Insert required values.
+insert into Student 
+values
+(01,"Lopes",75,"Pass"),
+(02,"Peter",89,"Pass"),
+(03,"Fren",45,"Fail"),
+(04,"Trevas",90,"Pass"),
+(05,"Paul",30,"Fail")
+
+-------*------*----------*------------*----------------------*------------------------*-------------------------*
+
+#Differnce between Table and Database.
+Database = collection of tables.
+Table = collection of rows & columns.
+You create a database first, then create tables inside it.
+
+#What is Varchar? 
+VARCHAR stands for Variable Character. It is a data type used to store text (strings).
+varchar (n)
+CODE:- Name varchar (50)
+->Can store names up to 50 characters
+->Saves space (uses only required memory)
+Here, n = Maximum number of Character
+
+#What is Char?
+CHAR means Fixed-length Character.
+Stores text of fixed size,
+Always uses the same memory,
+Faster but wastes space,
+Best for fixed values like gender, country code.
+
+#What is Primary Key?
+A Primary Key is a column (or set of columns) that uniquely identifies each row in a table.
+🔹 Key Features:
+-> Must be unique (no duplicate values).
+-> Cannot be NULL.
+-> Only one Primary Key per table.
+-> Ensures data integrity.
+
+
+
+
+
