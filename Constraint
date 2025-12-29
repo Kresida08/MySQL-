@@ -1,0 +1,184 @@
+create database Emp 
+
+use Emp
+
+create table Employee(
+Id_No Int Unique,
+Emp_Name varchar (50),
+Age int check (age>18),
+City varchar (20) default 'Mumbai');
+
+----------------------*-----------------------*----------------------------*------------------------
+
+#Correct code.
+insert into Employee 
+values
+(101,"Anna",20,"Goa"),
+(102,"Bancy",25,"Kerala"),
+(103,"Cassy",35,"Karnataka"),
+(104,"Danny",20,"Mumbai")
+  
+----------------------*-----------------------*----------------------------*------------------------
+
+#Error Code
+#It wont take the below entry as there is a duplicate entry of 101 which was suppposed to be unique and age is 17.
+CODE:-
+insert into Employee
+values
+(101,"Anna",20,"Goa"),
+(101,"Bancy",25,"Kerala"),
+(103,"Cassy",35,"Karnataka"),
+(104,"Danny",17,"Mumbai")
+
+----------------------*-----------------------*----------------------------*------------------------
+
+#To show the entire table made.
+CODE:-
+select * from Employee
+
+----------------------*-----------------------*----------------------------*------------------------
+
+#Default value 'Mumbai' has been taken in the below case.
+CODE:-
+insert into Employee (Id_No, Emp_Name, Age)
+values
+(105,"Emmy",19),
+(106,"Frendy",38),
+(107,"Grandy",50),
+(108,"Henry",47),
+(109,"Ivory",30),
+(110,"Jonny",19)
+
+----------------------*-----------------------*----------------------------*------------------------
+
+#Primary Key and Foreign Key
+create table City (
+City_Id int Primary Key,
+Cname Varchar (50))
+
+insert into City 
+values
+(01,"Mumbai"),
+(02,"Kerala"),
+(03,"Goa"),
+(04,"Karnataka"),
+(05,"Surat"),
+(06,"Pune"),
+(07,"Punjab"),
+(08,"Oman"),
+(09,"Surat"),
+(10,"London")
+
+----------------------*-----------------------*----------------------------*------------------------
+
+create  table Employees (
+ID int Primary Key,
+Name varchar (50),
+Salary int,
+City_Id int,
+foreign Key (City_Id) references City (City_Id))
+
+insert into Employees values
+(101,"Zaaza",20000,2),
+(102,"Yamini",36000,8),
+(103,"Wilson",39000,5),
+(104,"Leory",31000,3),
+(105,"Maria",28800,9),
+(106,"Nattie",53000,10),
+(107,"Osmond",48000,4),
+(108,"Philip",27500,6),
+(109,"Rhea",43000,1),
+(110,"Sian",64000,7)
+ 
+----------------------*-----------------------*----------------------------*------------------------
+-> UNIQUE
+UNIQUE is a constraint used to ensure that all values in a column (or group of columns) are different.
+👉 It prevents duplicate values in a column.
+🔹 Key Points
+- A column with UNIQUE cannot have duplicate values.
+- NULL values are allowed (but only one NULL per column).
+- You can have multiple UNIQUE columns in a table.
+- Different from PRIMARY KEY.
+SYNTAX:- 
+CREATE TABLE Students (
+    Roll_No INT PRIMARY KEY,
+    Email VARCHAR(50) UNIQUE,
+    Phone VARCHAR(15));
+
+-> CHECK
+What is CHECK in MySQL?
+The CHECK constraint is used to limit the values that can be stored in a column.
+It ensures that data entered into a table satisfies a specific condition.
+👉 If the condition is false, MySQL rejects the data.
+SYNTAX:-
+CREATE TABLE table_name (
+    column_name datatype,
+    CHECK (condition));
+
+-> NOT NULL
+NOT NULL is a constraint that ensures a column cannot have empty (NULL) values.
+It means every row must contain a value for that column.
+-> Why use NOT NULL?
+- To make sure important data is always present.
+- To avoid missing or undefined values.
+- Improves data integrity.
+SYNTAX:-
+CREATE TABLE Students (
+    Roll_No INT NOT NULL,
+    Name VARCHAR(50) NOT NULL,
+    Marks INT,
+    Result VARCHAR(10));
+
+-> DEFAULT 
+The DEFAULT constraint in MySQL is used to assign a default value to a column when no value is provided during an INSERT operation.
+-> Why DEFAULT is used.
+- Prevents NULL values.
+- Automatically fills a column if the user doesn’t give a value.
+- Ensures consistent data.
+-> Key Points
+DEFAULT works when value is not provided.
+DEFAULT does not apply if you explicitly insert NULL.
+Can be used with NOT NULL.
+SYNTAX:-
+CREATE TABLE table_name (
+    column_name datatype DEFAULT 'default_value');
+
+-> FOREIGN KEY
+A Foreign Key is a column (or group of columns) in one table that refers to the Primary Key of another table.
+👉 It ensures that the value entered must already exist in the referenced table.
+🔹 Why do we use a Foreign Key?
+- To connect related tables.
+- To prevent invalid data.
+- To maintain referential integrity.
+
+Parent Table (Referenced Table) SYNTAX:-
+CREATE TABLE City (
+    City_Id INT PRIMARY KEY,
+    City_Name VARCHAR(50));
+
+Child Table (Referencing Table) SYNTAX:-
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary INT,
+    City_Id INT,
+    FOREIGN KEY (City_Id) REFERENCES City(City_Id));
+
+🔹 Here:
+City_Id in Employees is a Foreign Key.
+It references City_Id in City.
+
+-> With ON DELETE / ON UPDATE
+FOREIGN KEY (City_Id)
+REFERENCES City(City_Id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+CASCADE → Automatically updates/deletes related rows.
+SET NULL → Sets foreign key to NULL.
+RESTRICT → Prevents delete/update.
+
+
+
+
+
