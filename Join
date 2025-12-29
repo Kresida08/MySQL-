@@ -1,0 +1,136 @@
+What are JOINS in MySQL?
+- JOINs are used to combine rows from two or more tables based on a related column (usually a primary key–foreign key relationship).
+
+🔹 Important JOIN Rules (Very Important for Interviews)
+1. ON Clause is mandatory.
+2. Table name after JOIN is required.
+3. Column name must exist in the table.
+4. Use table aliases.
+
+🔹 When to use which JOIN?
+Requirement	Use
+Only matching data -> INNER JOIN
+All records from left table ->	LEFT JOIN
+All records from right table	-> RIGHT JOIN
+All records from both tables ->	FULL JOIN (using UNION)
+
+-----------------------*----------------------*------------------------*------------------------*-----------------------*----------------------*------------------------*------------------------
+show databases
+use Emp
+
+#CREATE A NEW DATABASE.
+CREATE DATABASE EMPLOYEE;
+USE EMPLOYEE;
+
+-----------------------*----------------------*------------------------*------------------------*-----------------------*----------------------*------------------------*------------------------
+
+#CREATE A TABLE WITH PRIMARY KEY (BASE TABLE).
+CREATE TABLE BRANCH(
+B_ID INT PRIMARY KEY,
+BRANCH_NAME VARCHAR (20));
+
+#INSERT VALUES IN THE TABLE.
+INSERT INTO BRANCH VALUES
+(101,"MUMBAI"),
+(102,"PUNE"),
+(103,"GOA"),
+(104,"RATNAGIRI"),
+(105,"SATARA");
+
+-----------------------*----------------------*------------------------*------------------------
+
+#CREATE A TABLE WITH FOREIGN KEY TO CONNECT TO BASE TABLE.
+CREATE TABLE EMP(
+EMP_ID INT PRIMARY KEY,
+EMP_NAME VARCHAR (50),
+SALARY INT,
+B_ID INT,
+FOREIGN KEY (B_ID) REFERENCES BRANCH (B_ID));
+
+#INSERTING VALUES SHOULD BE UNIQUE AND NO DUPLICATE IS ALLOWED.
+INSERT INTO EMP VALUES
+(1,"ANNA",36000,105),
+(2,"BANCY",26000,102),
+(3,"CASSY",42000,101),
+(4,"DANCY",21500,104),
+(5,"EMMY",32800,103)
+
+-----------------------*----------------------*------------------------*------------------------
+
+#INNER JOIN 
+INNER JOIN is used to combine rows from two (or more) tables based on a matching condition.
+👉 It returns ONLY the rows that have matching values in both tables.
+CODE:-
+SELECT * FROM EMP 
+INNER JOIN BRANCH 
+ON EMP.B_ID = BRANCH.B_ID;
+
+SELECT EMP.EMP_NAME, EMP.SALARY, BRANCH.BRANCH_NAME FROM EMP
+INNER JOIN BRANCH ON
+EMP.B_ID = BRANCH.B_ID
+
+-----------------------*----------------------*------------------------*------------------------
+
+#RIGHT JOIN (WILL JOIN EMP TABLE TO BRANCH)
+Meaning:
+Returns all records from the RIGHT table, and matching records from the LEFT table.
+If there is no match, the result will show NULL for left-table columns.
+CODE:-
+SELECT EMP.EMP_ID, EMP.EMP_NAME, BRANCH.BRANCH_NAME FROM EMP
+RIGHT JOIN BRANCH ON 
+EMP.B_ID = BRANCH.B_ID;
+
+-----------------------*----------------------*------------------------*------------------------
+
+#LEFT JOIN (WILL JOIN BRANCH TO EMP)
+Meaning:
+Returns all records from the LEFT table, and matching records from the RIGHT table.
+If there is no match, the result will show NULL for right-table columns.
+CODE:-
+SELECT BRANCH.BRANCH_NAME, EMP.EMP_NAME, EMP.EMP_ID FROM BRANCH
+LEFT JOIN EMP ON 
+BRANCH.B_ID = EMP.B_ID;
+
+-----------------------*----------------------*------------------------*------------------------
+
+#RIGHT OUTER JOIN
+-> A RIGHT OUTER JOIN returns:
+- All records from the RIGHT table.
+- Matching records from the LEFT table.
+- If there is no match, the result will contain NULL for columns from the left table.
+  SYNTAX:-
+SELECT column_list
+FROM table1
+RIGHT JOIN table2
+ON table1.common_column = table2.common_column;
+  CODE:-
+SELECT BRANCH.BRANCH_NAME, EMP.EMP_NAME, EMP.EMP_ID 
+FROM EMP
+RIGHT JOIN BRANCH
+ON BRANCH.B_ID = EMP.B_ID;
+
+🔹 When to Use RIGHT JOIN
+When you want all records from the second (right) table.
+Even if there are no matching records in the first table.
+
+-----------------------*----------------------*------------------------*------------------------
+
+#LEFT OUTER JOIN
+-> A LEFT OUTER JOIN returns:
+- All records from the LEFT table.
+- Matching records from the RIGHT table.
+- If there is no match, the result will show NULL for columns from the right table.
+  SYNTAX:-
+SELECT columns
+FROM table1
+LEFT OUTER JOIN table2
+ON table1.common_column = table2.common_column;
+  CODE:-
+
+🔹 When to Use LEFT JOIN ?
+✔ When you want all data from the main table.
+✔ To find unmatched records.
+✔ In reports, master-detail relationships.
+
+
+
